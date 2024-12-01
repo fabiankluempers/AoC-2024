@@ -42,6 +42,8 @@ fun main(args: Array<String>) {
 
 private fun Puzzle.run() {
     println("${this::class.simpleName}:")
+    // load input before measuring
+    if (this is Input) { input }
     val one = measureTimedValue { puzzleOne() }
     println("\tPart 1 solved in ${one.duration.toString(DurationUnit.MILLISECONDS).padEnd(5, ' ')}: ${one.value}")
     val two = measureTimedValue { puzzleTwo() }
