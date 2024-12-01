@@ -5,8 +5,8 @@ import kotlin.time.DurationUnit
 import kotlin.time.measureTimedValue
 
 interface Puzzle {
-    fun puzzleOne(): String
-    fun puzzleTwo(): String
+    fun puzzleOne(): Any?
+    fun puzzleTwo(): Any?
 }
 
 interface Input {
@@ -31,13 +31,31 @@ class ReadInput private constructor(private val day: Int) : Input {
 
 
 
-fun main() {
+fun main(args: Array<String>) {
+    when {
+        args.contains("-a") -> runAll()
+        args.contains("-i") -> args.getOrNull(args.indexOf("-i") + 1)?.toIntOrNull()?.let(Puzzles::getOrNull)?.run() ?: runLast()
+        args.contains("-day") -> args.getOrNull(args.indexOf("-day") + 1)?.toIntOrNull()?.minus(1)?.let(Puzzles::getOrNull)?.run() ?: runLast()
+        else -> runLast()
+    }
+}
+
+private fun Puzzle.run() {
+    println("${this::class.simpleName}:")
+    val one = measureTimedValue { puzzleOne() }
+    println("\tPart 1 solved in ${one.duration.toString(DurationUnit.MILLISECONDS).padEnd(5, ' ')}: ${one.value}")
+    val two = measureTimedValue { puzzleTwo() }
+    println("\tPart 2 solved in ${two.duration.toString(DurationUnit.MILLISECONDS).padEnd(5, ' ')}: ${two.value}")
+}
+
+
+private fun runLast() {
+    Puzzles.last().run()
+}
+
+private fun runAll() {
     for (puzzle in Puzzles) {
-        println("${puzzle::class.simpleName}:")
-        val one = measureTimedValue { puzzle.puzzleOne() }
-        println("\tPart 1 solved in ${one.duration.toString(DurationUnit.MILLISECONDS).padEnd(5, ' ')}: ${one.value}")
-        val two = measureTimedValue { puzzle.puzzleTwo() }
-        println("\tPart 2 solved in ${two.duration.toString(DurationUnit.MILLISECONDS).padEnd(5, ' ')}: ${two.value}")
+        puzzle.run()
         println("-".repeat(80))
     }
 }

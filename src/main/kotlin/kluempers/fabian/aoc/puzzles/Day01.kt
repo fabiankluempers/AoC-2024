@@ -12,13 +12,12 @@ object Day01 : Puzzle, Input by ReadInput.forDay(1) {
         .map { it.split(Regex("\\s+")).toPair().map(String::toInt) }
         .unzip()
 
-    override fun puzzleOne(): String = inputs()
+    override fun puzzleOne() = inputs()
             .map { it.sorted() }
             .run { first.zip(second) { l, r -> abs( l - r) } }
             .sum()
-            .toString()
 
-    override fun puzzleTwo(): String = inputs().run {
-        first.sumOf { l -> l * second.count { r -> l == r } }.toString()
+    override fun puzzleTwo() = inputs().run {
+        first.sumOf { l -> l * second.count { r -> l == r } }
     }
 }
