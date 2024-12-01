@@ -13,6 +13,12 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-receivers")
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
 }
