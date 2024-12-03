@@ -6,4 +6,5 @@ object Puzzles : List<Puzzle> by listOf(
     Day01,
     Day02,
     Day03,
+    Day04,
 )
