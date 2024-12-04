@@ -14,6 +14,31 @@ object Day04 : Puzzle, Input by ReadInput.forDay(4) {
         return count
     }
 
+    override fun puzzleTwo(): Int {
+        var count = 0
+        for (y in input.indices) {
+            for (x in input[y].indices) {
+                if (takeDiagonalRight(x, y, 3) == "MAS"
+                    && takeRight(x, y, 3)?.get(2) == 'S'
+                    && takeDown(x, y, 3)?.get(2) == 'M'
+                ) count++
+                if (takeDiagonalRight(x, y, 3) == "SAM"
+                    && takeRight(x, y, 3)?.get(2) == 'S'
+                    && takeDown(x, y, 3)?.get(2) == 'M'
+                ) count++
+                if (takeDiagonalRight(x, y, 3) == "MAS"
+                    && takeRight(x, y, 3)?.get(2) == 'M'
+                    && takeDown(x, y, 3)?.get(2) == 'S'
+                ) count++
+                if (takeDiagonalRight(x, y, 3) == "SAM"
+                    && takeRight(x, y, 3)?.get(2) == 'M'
+                    && takeDown(x, y, 3)?.get(2) == 'S'
+                ) count++
+            }
+        }
+        return count
+    }
+
     private val directionsToCheck = listOf(::takeDiagonalRight, ::takeDiagonalLeft, ::takeRight, ::takeDown)
 
     private fun takeDiagonalRight(x: Int, y: Int, length: Int) = take(x, y, length, Int::inc, Int::inc)
@@ -30,7 +55,5 @@ object Day04 : Puzzle, Input by ReadInput.forDay(4) {
         return input[y][x].toString() + take(modifyX(x), modifyY(y), length - 1, modifyX, modifyY)
     }
 
-    override fun puzzleTwo(): Any? {
-        TODO("Not yet implemented")
-    }
+
 }
