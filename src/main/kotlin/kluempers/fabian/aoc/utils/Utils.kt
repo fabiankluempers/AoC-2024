@@ -9,3 +9,5 @@ fun <T> Pair<T,T>.toList() = listOf(first, second)
 fun <T> identity(t : T) = t
 
 fun <T> List<T>.uncons() = first() to drop(1)
+
+infix fun <T> T.cons(tail : List<T>) = listOf(this) + tail
