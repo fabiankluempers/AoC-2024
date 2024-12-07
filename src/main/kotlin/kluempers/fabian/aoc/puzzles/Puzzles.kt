@@ -9,4 +9,5 @@ object Puzzles : List<Puzzle> by listOf(
     Day04,
     Day05,
     Day06,
+    Day07,
 )
