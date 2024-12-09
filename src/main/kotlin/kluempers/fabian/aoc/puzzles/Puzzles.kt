@@ -11,4 +11,5 @@ object Puzzles : List<Puzzle> by listOf(
     Day06,
     Day07,
     Day08,
+    Day09,
 )
